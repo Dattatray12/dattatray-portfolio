@@ -1,7 +1,7 @@
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FaSun, FaMoon } from 'react-icons/fa'
+import { FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa'
 
 interface LayoutProps {
   children: ReactNode
@@ -20,6 +20,7 @@ const navItems = [
 
 const Layout = ({ children, theme, toggleTheme }: LayoutProps) => {
   const location = useLocation()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -29,6 +30,8 @@ const Layout = ({ children, theme, toggleTheme }: LayoutProps) => {
             <Link to="/" className="text-2xl font-bold text-primary">
               Dattatray Shendkar
             </Link>
+
+            {/* Desktop nav */}
             <div className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
                 <Link
@@ -49,7 +52,7 @@ const Layout = ({ children, theme, toggleTheme }: LayoutProps) => {
                   )}
                 </Link>
               ))}
-               <button
+              <button
                 onClick={toggleTheme}
                 className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-lighter transition-colors"
                 aria-label="Toggle theme"
@@ -59,12 +62,51 @@ const Layout = ({ children, theme, toggleTheme }: LayoutProps) => {
                 ) : (
                   <FaSun className="w-5 h-5" />
                 )}
-              </button> 
+              </button>
+            </div>
+
+            {/* Hamburger icon for mobile */}
+            <div className="md:hidden">
+              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                {isMobileMenuOpen ? (
+                  <FaTimes className="w-6 h-6 text-primary" />
+                ) : (
+                  <FaBars className="w-6 h-6 text-primary" />
+                )}
+              </button>
             </div>
           </div>
+
+          {/* Mobile nav */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden mt-4 space-y-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`block ${
+                    location.pathname === item.path
+                      ? 'text-primary font-semibold'
+                      : 'text-gray-700 dark:text-white hover:text-primary'
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)} // close on click
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <button
+                onClick={toggleTheme}
+                className="mt-2 p-2 rounded-full bg-gray-100 dark:bg-dark-lighter"
+              >
+                {theme === 'light' ? <FaMoon /> : <FaSun />}
+              </button>
+            </div>
+          )}
         </nav>
       </header>
+
       <main className="flex-grow container py-8">{children}</main>
+
       <footer className="bg-white dark:bg-dark shadow-inner">
         <div className="container py-4 text-center">
           <p>&copy; {new Date().getFullYear()} Dattatray Shendkar. All rights reserved.</p>
@@ -74,4 +116,4 @@ const Layout = ({ children, theme, toggleTheme }: LayoutProps) => {
   )
 }
 
-export default Layout 
+export default Layout
