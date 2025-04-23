@@ -1,6 +1,6 @@
-import React from 'react'
+//import React from 'react'
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaDownload } from 'react-icons/fa'
-import { motion } from 'framer-motion'
+//import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 
 const Resume = () => {

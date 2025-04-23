@@ -49,7 +49,7 @@ const Layout = ({ children, theme, toggleTheme }: LayoutProps) => {
                   )}
                 </Link>
               ))}
-              {/* <button
+               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-lighter transition-colors"
                 aria-label="Toggle theme"
@@ -59,7 +59,7 @@ const Layout = ({ children, theme, toggleTheme }: LayoutProps) => {
                 ) : (
                   <FaSun className="w-5 h-5" />
                 )}
-              </button> */}
+              </button> 
             </div>
           </div>
         </nav>

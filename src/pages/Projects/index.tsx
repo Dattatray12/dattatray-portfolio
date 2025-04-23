@@ -1,6 +1,6 @@
-import React from 'react'
+//import React from 'react'
 import { motion } from 'framer-motion'
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
+//import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
 import { Helmet } from 'react-helmet-async'
 
 interface Project {
